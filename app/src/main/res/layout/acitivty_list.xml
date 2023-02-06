@@ -8,9 +8,8 @@
     android:id="@+id/coordinator_layout"
     tools:context=".ui.list.ListActivity">
 
-
     <include
-        android:id="@+id/include"
+        android:id="@+id/rv_note"
         layout="@layout/note_list" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

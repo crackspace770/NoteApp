@@ -12,10 +12,14 @@ interface NoteDao {
   //  fun getAllLetters(query: SupportSQLiteQuery): DataSource.Factory<Int, Note>
 
     @Query("SELECT * from note ORDER BY id ASC")
-    fun getAllNotes(): DataSource.Factory<Int, Note>
+    fun getAllNotes(query: SupportSQLiteQuery): DataSource.Factory<Int, Note>
 
     @Query("select * from note where id = :noteId")
     fun getNote(noteId: Int): LiveData<Note>
+
+    //displaying nearest data using WHERE on repository class
+    @Query("SELECT * FROM note WHERE completed = 0 ORDER BY created ASC")
+    fun getNearestNote(): Note
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(note: Note): Long

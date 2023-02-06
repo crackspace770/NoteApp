@@ -6,6 +6,8 @@ import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import com.fajar.noteapp.utils.FilterUtils.getFilteredQuery
+import com.fajar.noteapp.utils.NoteFilterType
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -32,12 +34,14 @@ class DataRepository(private val noteDao: NoteDao,
     }
 
 
-    fun getAllNotes(input: Int): LiveData<PagedList<Note>> {
+    fun getAllNotes(filter: NoteFilterType): LiveData<PagedList<Note>> {
         val config = PagedList.Config.Builder()
-            .setPageSize(PAGE_SIZE)
-            .setEnablePlaceholders(PLACEHOLDERS)
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(MifareUltralight.PAGE_SIZE)
+            .setPageSize(MifareUltralight.PAGE_SIZE)
             .build()
-      return LivePagedListBuilder(noteDao.getAllNotes(), config).build()
+
+        return LivePagedListBuilder(noteDao.getAllNotes(getFilteredQuery(filter)), config).build()
     }
 
     fun getNote(id: Int):LiveData<Note>{

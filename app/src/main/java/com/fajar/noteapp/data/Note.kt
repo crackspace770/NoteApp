@@ -22,8 +22,8 @@ data class Note (
     @ColumnInfo(name = "content")
     val content: String,
 
-  //  @NonNull
-  //  @ColumnInfo(name="created")
-  //  val created: Long
+    @NonNull
+    @ColumnInfo(name="created")
+    val created: Long
 
         )
