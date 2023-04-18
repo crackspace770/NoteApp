@@ -46,8 +46,8 @@ class NoteAdapter(
     }
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
-        val letter = getItem(position) as Note
-        holder.bind(letter, clickListener)
+        val note = getItem(position) as Note
+        holder.bind(note, clickListener)
     }
 
 

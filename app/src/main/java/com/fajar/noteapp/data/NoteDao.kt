@@ -18,7 +18,7 @@ interface NoteDao {
     fun getNote(noteId: Int): LiveData<Note>
 
     //displaying nearest data using WHERE on repository class
-    @Query("SELECT * FROM note WHERE completed = 0 ORDER BY created ASC")
+    @Query("SELECT * FROM note WHERE created = 0 ORDER BY created ASC")
     fun getNearestNote(): Note
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

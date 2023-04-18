@@ -12,6 +12,15 @@ class ListViewModel(private val noteRepository: DataRepository): ViewModel() {
     private val _noteId = MutableLiveData<Int>()
     private val _filter = MutableLiveData<NoteFilterType>()
 
+    init {
+        _filter.value = NoteFilterType.ALL_NOTES
+    }
+
+    //put on menu bar
+    fun filter(filterType: NoteFilterType) {
+        _filter.value = filterType
+    }
+
     val note: LiveData<PagedList<Note>> = _filter.switchMap { input ->
         noteRepository.getAllNotes(input)
     }

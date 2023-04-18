@@ -7,14 +7,14 @@ object FilterUtils {
     fun getFilteredQuery(filter: NoteFilterType): SimpleSQLiteQuery {
         val simpleQuery = StringBuilder().append("SELECT * FROM notes ")
         when (filter) {
-            NoteFilterType.COMPLETED_TASKS -> {
-                simpleQuery.append("WHERE completed = 1")
+            NoteFilterType.LATEST_NOTES -> {
+                simpleQuery.append("ORDER BY created DESC")
             }
-            NoteFilterType.ACTIVE_TASKS -> {
-                simpleQuery.append("WHERE completed = 0")
+            NoteFilterType.OLDEST_NOTES -> {
+                simpleQuery.append("ORDER BY created ASC")
             }
             else -> {
-                NoteFilterType.ALL_TASKS
+                NoteFilterType.ALL_NOTES
             }
         }
         return SimpleSQLiteQuery(simpleQuery.toString())

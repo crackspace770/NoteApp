@@ -2,4 +2,6 @@
     <string name="app_name">Note App</string>
     <string name="add_note">Add Note</string>
     <string name="close_button">Close Button</string>
+    <string name="created_title">Created %1$s</string>
+    <string name="action_filter">filter</string>
 </resources>

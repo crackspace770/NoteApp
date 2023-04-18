@@ -12,11 +12,15 @@ import com.fajar.noteapp.data.Note
 import com.fajar.noteapp.databinding.ActivityAddBinding
 import com.fajar.noteapp.ui.ViewModelFactory
 import com.fajar.noteapp.ui.list.ListActivity
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AddActivity:AppCompatActivity() {
 
     private lateinit var viewModel: AddViewModel
     private lateinit var binding: ActivityAddBinding
+    private lateinit var simpleDate: SimpleDateFormat
+    private var created: Long = System.currentTimeMillis()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +33,8 @@ class AddActivity:AppCompatActivity() {
 
         }
 
+        simpleDate = SimpleDateFormat("dd mm yyyy, h:mm a", Locale.getDefault())
+        supportActionBar?.title = getString(R.string.created_title, simpleDate.format(viewModel.created))
     }
 
     //enable menu bar
@@ -48,7 +54,7 @@ class AddActivity:AppCompatActivity() {
 
                 val title = titleNote.text.toString()
                 val content = contentNote.text.toString()
-                val note = Note(0, title, content)
+                val note = Note(0, title, content, created)
 
                 Toast.makeText(this, "Note Added", Toast.LENGTH_SHORT).show()
 

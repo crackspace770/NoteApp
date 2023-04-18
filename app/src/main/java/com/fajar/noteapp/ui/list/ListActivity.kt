@@ -3,8 +3,15 @@ package com.fajar.noteapp.ui.list
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.PopupMenu
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagedList
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,14 +23,16 @@ import com.fajar.noteapp.databinding.AcitivtyListBinding
 import com.fajar.noteapp.ui.ViewModelFactory
 import com.fajar.noteapp.ui.add.AddActivity
 import com.fajar.noteapp.ui.detail.DetailActivity
+import com.fajar.noteapp.ui.detail.DetailActivity.Companion.EXTRA_NOTE
 import com.fajar.noteapp.utils.NOTE_ID
+import com.fajar.noteapp.utils.NoteFilterType
 
 class ListActivity: AppCompatActivity() {
 
-    private lateinit var recycler: RecyclerView
+    private lateinit var rvNote: RecyclerView
     private lateinit var viewModel: ListViewModel
     private lateinit var binding: AcitivtyListBinding
-    private val adapter: NoteAdapter by lazy {
+    private val noteAdapter: NoteAdapter by lazy {
         NoteAdapter(::onLetterClick)
     }
 
@@ -32,6 +41,8 @@ class ListActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = AcitivtyListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(findViewById(R.id.toolbar))
+
 
         binding.fab.setOnClickListener {
             val intent = Intent(this, AddActivity::class.java)
@@ -41,39 +52,48 @@ class ListActivity: AppCompatActivity() {
         val factory = ViewModelFactory.getInstance(this)
         val viewModel = ViewModelProvider(this, factory)[ListViewModel::class.java]
 
-        recycler = findViewById(R.id.rv_note)
-        recycler.layoutManager = LinearLayoutManager(this)
-        recycler.setHasFixedSize(true)
+        rvNote = findViewById(R.id.rv_note)
+        rvNote.layoutManager = LinearLayoutManager(this)
+        rvNote.setHasFixedSize(true)
 
-     //   adapter = NoteAdapter {
-     //       Intent(this, DetailActivity::class.java).apply {
-    //            putExtra(EXTRA_NOTE)
-   //             startActivity(this)
-   //         }
-   //     }
+       // noteAdapter = NoteAdapter {
+      //      Intent(this, DetailActivity::class.java).apply {
+     //           putExtra(EXTRA_NOTE)
+    //            startActivity(this)
+    //        }
+    //    }
 
         viewModel.note.observe(this){
            it?.let{
-               adapter.submitList(it)
-               adapter.notifyDataSetChanged()
-               recycler.adapter = adapter
+               noteAdapter.submitList(it)
+               noteAdapter.notifyDataSetChanged()
+               rvNote.adapter = noteAdapter
            }
         }
 
+        setUpRecyclerView()
+        noteList()
         initAction()
 
     }
 
-  //  private fun showRecyclerView(note: PagedList<Note>){
-//TODO 7 : Submit pagedList to adapter and update database when onCheckChange
- //       val noteAdapter = NoteAdapter
- //       {tasks, isChecked ->
- //           viewModel.completeTask(tasks, isChecked)
- //       }
- //       noteAdapter.submitList(note)
- //       noteAdapter.notifyDataSetChanged()
- //       recycler.adapter = noteAdapter
-//    }
+    private fun noteList(){
+        viewModel.note.observe(this) {
+            Log.d("Letter", it.toString())
+            noteAdapter.submitList(it)
+        }
+    }
+
+    private fun setUpRecyclerView(){
+
+        rvNote = findViewById(R.id.rv_note)
+        rvNote.apply {
+            layoutManager = GridLayoutManager(this@ListActivity,2)
+            adapter = adapter
+        }
+    }
+
+
 
     private fun onLetterClick(note: Note) {
         Intent(this@ListActivity,DetailActivity::class.java).apply {
@@ -104,7 +124,46 @@ class ListActivity: AppCompatActivity() {
             }
 
         })
-        itemTouchHelper.attachToRecyclerView(recycler)
+        itemTouchHelper.attachToRecyclerView(rvNote)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_list, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        return when(item.itemId){
+            R.id.action_filter -> {
+                showFilteringPopUpMenu()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun showFilteringPopUpMenu(){
+
+        val view = findViewById<View>(R.id.action_filter) ?: return
+        PopupMenu(this, view).run {
+            menuInflater.inflate(R.menu.filter_note, menu)
+
+            //filter from view model
+            setOnMenuItemClickListener {
+                viewModel.filter(
+                    when (it.itemId) {
+                        R.id.latest -> NoteFilterType.LATEST_NOTES
+                        R.id.oldest-> NoteFilterType.OLDEST_NOTES
+                        else -> NoteFilterType.ALL_NOTES
+                    }
+                )
+                true
+            }
+            show()
+        }
+
     }
 
 }

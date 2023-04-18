@@ -9,6 +9,8 @@ import kotlinx.coroutines.launch
 
 class AddViewModel(private val noteRepository: DataRepository): ViewModel() {
 
+    val created = System.currentTimeMillis()
+
     //add to database function
     fun addNote(note:Note){
         viewModelScope.launch(Dispatchers.IO) {

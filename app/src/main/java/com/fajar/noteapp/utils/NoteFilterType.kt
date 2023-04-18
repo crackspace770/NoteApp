@@ -4,15 +4,15 @@ enum class NoteFilterType {
     /**
      * Do not filter tasks.
      */
-    ALL_TASKS,
+    ALL_NOTES,
 
     /**
      * Filters only the active (not completed yet) tasks.
      */
-    ACTIVE_TASKS,
+    LATEST_NOTES,
 
     /**
      * Filters only the completed tasks.
      */
-    COMPLETED_TASKS
+    OLDEST_NOTES
 }
