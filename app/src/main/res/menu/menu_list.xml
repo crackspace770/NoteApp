@@ -4,6 +4,13 @@
     tools:context="com.fajar.noteapp.ui.list.ListActivity">
 
     <item
+        android:id="@+id/action_add"
+        android:orderInCategory="100"
+        android:title="@string/action_add"
+        android:icon="@drawable/ic_add"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/action_filter"
         android:orderInCategory="99"
         android:title="@string/action_filter"

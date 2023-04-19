@@ -1,6 +1,5 @@
 package com.fajar.noteapp.ui.list
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,8 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
-import androidx.lifecycle.ViewModelProvider
-import androidx.paging.PagedList
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,40 +34,15 @@ class ListActivity: AppCompatActivity() {
         NoteAdapter(::onLetterClick)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = AcitivtyListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setSupportActionBar(findViewById(R.id.toolbar))
 
-
-        binding.fab.setOnClickListener {
-            val intent = Intent(this, AddActivity::class.java)
-            startActivity(intent)
-        }
 
         val factory = ViewModelFactory.getInstance(this)
-        val viewModel = ViewModelProvider(this, factory)[ListViewModel::class.java]
+        viewModel = ViewModelProviders.of(this, factory)[ListViewModel::class.java]
 
-        rvNote = findViewById(R.id.rv_note)
-        rvNote.layoutManager = LinearLayoutManager(this)
-        rvNote.setHasFixedSize(true)
-
-       // noteAdapter = NoteAdapter {
-      //      Intent(this, DetailActivity::class.java).apply {
-     //           putExtra(EXTRA_NOTE)
-    //            startActivity(this)
-    //        }
-    //    }
-
-        viewModel.note.observe(this){
-           it?.let{
-               noteAdapter.submitList(it)
-               noteAdapter.notifyDataSetChanged()
-               rvNote.adapter = noteAdapter
-           }
-        }
 
         setUpRecyclerView()
         noteList()
@@ -91,8 +64,8 @@ class ListActivity: AppCompatActivity() {
             layoutManager = GridLayoutManager(this@ListActivity,2)
             adapter = adapter
         }
-    }
 
+    }
 
 
     private fun onLetterClick(note: Note) {
@@ -137,6 +110,12 @@ class ListActivity: AppCompatActivity() {
         return when(item.itemId){
             R.id.action_filter -> {
                 showFilteringPopUpMenu()
+                true
+            }
+
+            R.id.action_add -> {
+                val intent = Intent(this, AddActivity::class.java)
+                startActivity(intent)
                 true
             }
 

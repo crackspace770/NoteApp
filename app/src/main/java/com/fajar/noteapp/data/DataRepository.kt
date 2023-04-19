@@ -36,9 +36,9 @@ class DataRepository(private val noteDao: NoteDao,
 
     fun getAllNotes(filter: NoteFilterType): LiveData<PagedList<Note>> {
         val config = PagedList.Config.Builder()
-            .setEnablePlaceholders(false)
-            .setInitialLoadSizeHint(MifareUltralight.PAGE_SIZE)
-            .setPageSize(MifareUltralight.PAGE_SIZE)
+            .setEnablePlaceholders(PLACEHOLDERS)
+            .setInitialLoadSizeHint(PAGE_SIZE)
+            .setPageSize(PAGE_SIZE)
             .build()
 
         return LivePagedListBuilder(noteDao.getAllNotes(getFilteredQuery(filter)), config).build()

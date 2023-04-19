@@ -1,0 +1,22 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "subject": "Belajar AAD",
+      "content": "Belajar dasar-dasar materi di kelas Dicoding",
+      "created": 1577811600000,
+    },
+    {
+      "id": 2,
+      "subject": "Simulasi Ujian AAD",
+      "content": "Mencoba mengerjakan project latihan AAD",
+      "created": 1655226000000,
+    },
+    {
+      "id": 3,
+      "subject": "Ambil Ujian AAD",
+      "content": "Saatnya menjadi Associate Android Developer!",
+      "created": 1735578000000,
+    }
+  ]
+}

@@ -5,7 +5,7 @@ import androidx.sqlite.db.SimpleSQLiteQuery
 object FilterUtils {
 
     fun getFilteredQuery(filter: NoteFilterType): SimpleSQLiteQuery {
-        val simpleQuery = StringBuilder().append("SELECT * FROM notes ")
+        val simpleQuery = StringBuilder().append("SELECT * FROM note ")
         when (filter) {
             NoteFilterType.LATEST_NOTES -> {
                 simpleQuery.append("ORDER BY created DESC")

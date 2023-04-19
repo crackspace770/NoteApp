@@ -11,7 +11,7 @@ class NoteViewHolder(view: View): RecyclerView.ViewHolder(view)  {
 
     private lateinit var note: Note
     private val context = itemView.context
-    //private val simpleDate = SimpleDateFormat("MMM d Y, h:mm a", Locale.getDefault())
+    private val simpleDate = SimpleDateFormat("MMM d Y, h:mm a", Locale.getDefault())
 
     //TODO 7 : Complete ViewHolder to show item(done)
     fun bind(note: Note, clickListener: (Note) -> Unit) {

@@ -11,7 +11,7 @@ interface NoteDao {
   //  @RawQuery(observedEntities = [Note::class])
   //  fun getAllLetters(query: SupportSQLiteQuery): DataSource.Factory<Int, Note>
 
-    @Query("SELECT * from note ORDER BY id ASC")
+    @RawQuery(observedEntities = [Note::class])
     fun getAllNotes(query: SupportSQLiteQuery): DataSource.Factory<Int, Note>
 
     @Query("select * from note where id = :noteId")

@@ -26,12 +26,17 @@ class AddActivity:AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = getString(R.string.action_add)
 
-        binding.btnClose.setOnClickListener {
-            val intent = Intent(this, ListActivity::class.java)
-            startActivity(intent)
+        val factory = ViewModelFactory.getInstance(this)
+        viewModel = ViewModelProvider(this, factory)[AddViewModel::class.java]
 
-        }
+    //    binding.btnClose.setOnClickListener {
+   //         val intent = Intent(this, ListActivity::class.java)
+ //           startActivity(intent)
+//
+  //      }
 
         simpleDate = SimpleDateFormat("dd mm yyyy, h:mm a", Locale.getDefault())
         supportActionBar?.title = getString(R.string.created_title, simpleDate.format(viewModel.created))
