@@ -36,7 +36,7 @@ class DataRepository(private val noteDao: NoteDao,
 
     fun getAllNotes(filter: NoteFilterType): LiveData<PagedList<Note>> {
         val config = PagedList.Config.Builder()
-            .setEnablePlaceholders(PLACEHOLDERS)
+            .setEnablePlaceholders(false)
             .setInitialLoadSizeHint(PAGE_SIZE)
             .setPageSize(PAGE_SIZE)
             .build()

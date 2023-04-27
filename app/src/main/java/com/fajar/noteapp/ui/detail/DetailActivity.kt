@@ -1,8 +1,10 @@
 package com.fajar.noteapp.ui.detail
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.fajar.noteapp.R
 import com.fajar.noteapp.data.Note
 import com.fajar.noteapp.databinding.ActivityDetailBinding
 import com.fajar.noteapp.ui.ViewModelFactory
@@ -25,14 +27,18 @@ class DetailActivity:AppCompatActivity() {
        val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
 
+        val subject = findViewById<TextView>(R.id.tvContent)
+        val content = findViewById<TextView>(R.id.tvTitle)
+        //val dueDate = findViewById<TextView>(R.id.detail_ed_due_date)
+
         val noteId = intent.getIntExtra(EXTRA_NOTE, 0)
         viewModel.setTaskId(noteId)
 
 
         viewModel.note.observe(this){
             binding.apply {
-                tvTitle.text = it?.subject
-                tvContent.text = it?.content
+                subject.text = it?.subject
+                content.text = it?.content
             }
         }
 

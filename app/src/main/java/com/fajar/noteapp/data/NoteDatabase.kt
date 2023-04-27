@@ -25,26 +25,25 @@ abstract fun noteDao(): NoteDao
     companion object {
 
         @Volatile
-        private var INSTANCE: NoteDatabase? = null
+        private var instance: NoteDatabase? = null
 
         fun getInstance(context: Context): NoteDatabase {
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    NoteDatabase::class.java,
-                    "notes.db"
-                ).addCallback(object : Callback(){
+            return instance ?: synchronized(this) {
+                instance ?: Room.databaseBuilder(
+                    context,
+                    NoteDatabase::class.java, "letter.db"
+                ).addCallback( object : Callback(){
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
-                        INSTANCE?.let {
-                            Executors.newSingleThreadExecutor().execute {
+                        instance?.let {
+                            Executors.newSingleThreadExecutor().execute(){
                                 fillWithStartingData(context.applicationContext, it.noteDao())
                             }
                         }
                     }
+
                 }).build()
-                INSTANCE = instance
-                instance
+
             }
         }
 

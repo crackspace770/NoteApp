@@ -9,11 +9,9 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.fajar.noteapp.NoteViewHolder
 import com.fajar.noteapp.R
 import com.fajar.noteapp.adapter.NoteAdapter
 import com.fajar.noteapp.data.Note
@@ -21,7 +19,6 @@ import com.fajar.noteapp.databinding.AcitivtyListBinding
 import com.fajar.noteapp.ui.ViewModelFactory
 import com.fajar.noteapp.ui.add.AddActivity
 import com.fajar.noteapp.ui.detail.DetailActivity
-import com.fajar.noteapp.ui.detail.DetailActivity.Companion.EXTRA_NOTE
 import com.fajar.noteapp.utils.NOTE_ID
 import com.fajar.noteapp.utils.NoteFilterType
 
@@ -40,6 +37,7 @@ class ListActivity: AppCompatActivity() {
         setContentView(binding.root)
 
 
+
         val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProviders.of(this, factory)[ListViewModel::class.java]
 
@@ -52,7 +50,7 @@ class ListActivity: AppCompatActivity() {
 
     private fun noteList(){
         viewModel.note.observe(this) {
-            Log.d("Letter", it.toString())
+            Log.d("Note", it.toString())
             noteAdapter.submitList(it)
         }
     }
@@ -61,8 +59,8 @@ class ListActivity: AppCompatActivity() {
 
         rvNote = findViewById(R.id.rv_note)
         rvNote.apply {
-            layoutManager = GridLayoutManager(this@ListActivity,2)
-            adapter = adapter
+            layoutManager = LinearLayoutManager(this@ListActivity)
+            adapter = noteAdapter
         }
 
     }
@@ -92,8 +90,8 @@ class ListActivity: AppCompatActivity() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val habit = (viewHolder as NoteViewHolder).getNote()
-                viewModel.deleteNote(habit)
+              //  val note = (viewHolder as NoteAdapter).getNote()
+              //  viewModel.deleteNote(note)
             }
 
         })
