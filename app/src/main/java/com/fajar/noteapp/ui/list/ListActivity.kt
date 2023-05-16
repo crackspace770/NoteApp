@@ -67,9 +67,13 @@ class ListActivity: AppCompatActivity() {
 
 
     private fun onLetterClick(note: Note) {
-        Intent(this@ListActivity,DetailActivity::class.java).apply {
-            putExtra(NOTE_ID,note.id)
-        }.also { startActivity(it) }
+     //   Intent(this@ListActivity,DetailActivity::class.java).apply {
+     //       putExtra(NOTE_ID,note.id)
+     //   }.also { startActivity(it) }
+
+        val i = Intent(this, DetailActivity::class.java)
+        i.putExtra(NOTE_ID, note.id)
+        startActivity(i)
     }
 
     private fun initAction() {

@@ -7,9 +7,9 @@ import com.fajar.noteapp.data.DataRepository
 import com.fajar.noteapp.data.Note
 import androidx.lifecycle.switchMap
 
-class DetailViewModel(private val noteRepository: DataRepository, ): ViewModel() {
+class DetailViewModel(private val noteRepository: DataRepository): ViewModel() {
 
-  //  val notes: LiveData<Note> = noteRepository.getNote(noteId)
+  //  val notes: LiveData<Note> = _note
 
     private val _noteId = MutableLiveData<Int>()
     private val _note = _noteId.switchMap{ id ->
