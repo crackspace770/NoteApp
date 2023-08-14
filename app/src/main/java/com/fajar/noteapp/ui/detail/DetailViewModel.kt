@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.fajar.noteapp.data.DataRepository
 import com.fajar.noteapp.data.Note
 import androidx.lifecycle.switchMap
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class DetailViewModel(private val noteRepository: DataRepository): ViewModel() {
 
@@ -24,4 +27,11 @@ class DetailViewModel(private val noteRepository: DataRepository): ViewModel() {
         }
         _noteId.value = taskId
     }
+
+    fun updateNote(note:Note){
+        viewModelScope.launch(Dispatchers.IO) {
+            noteRepository.update(note)
+        }
+    }
+
 }

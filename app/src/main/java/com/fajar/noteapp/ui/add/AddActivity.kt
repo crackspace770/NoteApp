@@ -1,6 +1,5 @@
 package com.fajar.noteapp.ui.add
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -11,7 +10,6 @@ import com.fajar.noteapp.R
 import com.fajar.noteapp.data.Note
 import com.fajar.noteapp.databinding.ActivityAddBinding
 import com.fajar.noteapp.ui.ViewModelFactory
-import com.fajar.noteapp.ui.list.ListActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -57,10 +55,14 @@ class AddActivity:AppCompatActivity() {
                 val factory = ViewModelFactory.getInstance(this)
                 viewModel = ViewModelProvider(this, factory)[AddViewModel::class.java]
 
+                when{
+                    binding.edTitle.text.toString().isEmpty() -> Toast.makeText(this,"Please fill in the title", Toast.LENGTH_SHORT).show()
+                    binding.edContent.text.toString().isEmpty() -> Toast.makeText(this, "Please fill in the content", Toast.LENGTH_SHORT).show()
+
+                }
                 val title = titleNote.text.toString()
                 val content = contentNote.text.toString()
                 val note = Note(0, title, content, created)
-
                 Toast.makeText(this, "Note Added", Toast.LENGTH_SHORT).show()
 
                 viewModel.addNote(note)
