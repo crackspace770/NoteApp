@@ -62,7 +62,7 @@ class AddActivity:AppCompatActivity() {
                 }
                 val title = titleNote.text.toString()
                 val content = contentNote.text.toString()
-                val note = Note(0, title, content, created)
+                val note = Note(0, title, content,)
                 Toast.makeText(this, "Note Added", Toast.LENGTH_SHORT).show()
 
                 viewModel.addNote(note)

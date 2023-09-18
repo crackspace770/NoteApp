@@ -29,9 +29,9 @@ class DetailViewModel(private val noteRepository: DataRepository): ViewModel() {
     }
 
     fun updateNote(note:Note){
-        viewModelScope.launch(Dispatchers.IO) {
-            noteRepository.update(note)
-        }
+
+        noteRepository.update(note)
+
     }
 
 }

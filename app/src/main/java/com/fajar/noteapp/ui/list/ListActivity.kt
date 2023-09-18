@@ -9,6 +9,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +19,7 @@ import com.fajar.noteapp.data.Note
 import com.fajar.noteapp.databinding.AcitivtyListBinding
 import com.fajar.noteapp.ui.ViewModelFactory
 import com.fajar.noteapp.ui.add.AddActivity
+import com.fajar.noteapp.ui.addUpdate.NoteAddUpdateActivity
 import com.fajar.noteapp.ui.detail.DetailActivity
 import com.fajar.noteapp.utils.NOTE_ID
 import com.fajar.noteapp.utils.NoteFilterType
@@ -36,8 +38,6 @@ class ListActivity: AppCompatActivity() {
         binding = AcitivtyListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-
         val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProviders.of(this, factory)[ListViewModel::class.java]
 
@@ -45,7 +45,7 @@ class ListActivity: AppCompatActivity() {
         setUpRecyclerView()
         noteList()
         initAction()
-
+        showEmptyDataState()
     }
 
     private fun noteList(){
@@ -55,23 +55,41 @@ class ListActivity: AppCompatActivity() {
         }
     }
 
+    private fun showEmptyDataState() {
+        viewModel.note.observe(this) { notes ->
+            val viewEmpty = findViewById<View>(R.id.viewEmpty)
+            binding.apply {
+                if (notes.isEmpty()) {
+                    // Display the empty view and hide the RecyclerView
+                    viewEmpty.visibility = View.VISIBLE
+                    rvNote.visibility = View.GONE
+                } else {
+                    // Hide the empty view and show the RecyclerView
+                    viewEmpty.visibility = View.GONE
+                    rvNote.visibility = View.VISIBLE
+                }
+            }
+
+        }
+    }
+
+
     private fun setUpRecyclerView(){
 
         rvNote = findViewById(R.id.rv_note)
         rvNote.apply {
-            layoutManager = LinearLayoutManager(this@ListActivity)
+            layoutManager = GridLayoutManager(this@ListActivity, 2)
             adapter = noteAdapter
         }
+
 
     }
 
 
-    private fun onLetterClick(note: Note) {
-     //   Intent(this@ListActivity,DetailActivity::class.java).apply {
-     //       putExtra(NOTE_ID,note.id)
-     //   }.also { startActivity(it) }
 
-        val i = Intent(this, DetailActivity::class.java)
+
+    private fun onLetterClick(note: Note) {
+        val i = Intent(this, NoteAddUpdateActivity::class.java)
         i.putExtra(NOTE_ID, note.id)
         startActivity(i)
     }

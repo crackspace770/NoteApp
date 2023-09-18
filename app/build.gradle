@@ -96,4 +96,6 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-intents:$espresso_version"
     androidTestImplementation "androidx.test.espresso.idling:idling-concurrent:$espresso_version"
     androidTestImplementation "androidx.work:work-testing:$work_version"
+
+    implementation 'androidx.work:work-runtime-ktx:2.7.0'
 }

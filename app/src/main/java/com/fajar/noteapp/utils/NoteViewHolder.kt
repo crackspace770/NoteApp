@@ -1,7 +1,6 @@
 package com.fajar.noteapp.utils
 
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.VisibleForTesting
 import androidx.recyclerview.widget.RecyclerView
@@ -23,8 +22,8 @@ class NoteViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         itemView.setOnClickListener { clickListener(letter) }
 
        // val textOpenend = itemView.findViewById<TextView>(R.id.textOpened)
-        val subjectText = itemView.findViewById<TextView>(R.id.tvTitle)
-        val content = itemView.findViewById<TextView>(R.id.tvContent)
+        val subjectText = itemView.findViewById<TextView>(R.id.tvTitleUpdate)
+        val content = itemView.findViewById<TextView>(R.id.tvContentUpdate)
 
 
         subjectText.text = letter.subject

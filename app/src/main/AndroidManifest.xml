@@ -29,6 +29,11 @@
 
         <activity android:name=".ui.add.AddActivity" />
 
+        <activity
+            android:name=".ui.addUpdate.NoteAddUpdateActivity"
+            android:exported="true" />
+
+
     </application>
 
 </manifest>

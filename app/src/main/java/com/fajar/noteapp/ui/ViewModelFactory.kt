@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.fajar.noteapp.data.DataRepository
 import com.fajar.noteapp.ui.add.AddViewModel
+import com.fajar.noteapp.ui.addUpdate.NoteAddUpdateViewModel
 import com.fajar.noteapp.ui.detail.DetailViewModel
 import com.fajar.noteapp.ui.list.ListViewModel
 
@@ -34,6 +35,9 @@ class ViewModelFactory private constructor(private val noteRepository: DataRepos
             }
             modelClass.isAssignableFrom(AddViewModel::class.java) -> {
                 AddViewModel(noteRepository) as T
+            }
+            modelClass.isAssignableFrom(NoteAddUpdateViewModel::class.java) ->{
+                NoteAddUpdateViewModel(noteRepository) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

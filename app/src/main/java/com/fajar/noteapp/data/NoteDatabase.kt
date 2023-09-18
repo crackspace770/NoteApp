@@ -58,7 +58,7 @@ abstract fun noteDao(): NoteDao
                                 item.getInt("id"),
                                 item.getString("subject"),
                                 item.getString("content"),
-                                item.getLong("created"),
+                                item.getString("created"),
                             )
                         )
                     }

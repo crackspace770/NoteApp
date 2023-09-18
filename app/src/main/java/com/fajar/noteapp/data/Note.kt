@@ -1,12 +1,15 @@
 package com.fajar.noteapp.data
 
+import android.os.Parcelable
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 import javax.security.auth.Subject
 
 @Entity(tableName = "note")
+@Parcelize
 data class Note (
 
     @PrimaryKey(autoGenerate = true)
@@ -14,16 +17,13 @@ data class Note (
     @ColumnInfo(name = "id")
     val id: Int,
 
-    @NonNull
     @ColumnInfo(name="subject")
-    val subject: String,
+    var subject: String? = null,
 
-    @NonNull
     @ColumnInfo(name = "content")
-    val content: String,
+    var content: String? = null,
 
-    @NonNull
     @ColumnInfo(name="created")
-    val created: Long
+    var created: String? = null
 
-        )
+        ):Parcelable

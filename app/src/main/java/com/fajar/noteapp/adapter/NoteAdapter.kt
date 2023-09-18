@@ -13,8 +13,6 @@ import com.fajar.noteapp.data.Note
 import com.fajar.noteapp.ui.detail.DetailActivity
 import com.fajar.noteapp.utils.NOTE_ID
 
-import java.util.*
-
 class NoteAdapter(
     private val clickListener: (Note) -> Unit
 ) : PagedListAdapter<Note, NoteAdapter.NoteViewHolder>(DIFF_CALLBACK) {
@@ -44,7 +42,7 @@ class NoteAdapter(
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): NoteViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.item_note, viewGroup, false)
+            .inflate(R.layout.item_list, viewGroup, false)
 
         return NoteViewHolder(view)
     }
@@ -55,8 +53,8 @@ class NoteAdapter(
     }
 
     inner class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
-        val tvContent: TextView = itemView.findViewById(R.id.tvContent)
+        val tvTitle: TextView = itemView.findViewById(R.id.tvTitleUpdate)
+        val tvContent: TextView = itemView.findViewById(R.id.tvContentUpdate)
         //val cbComplete: CheckBox = itemView.findViewById(R.id.item_checkbox)
       //  private val tvDueDate: TextView = itemView.findViewById(R.id.item_tv_date)
 
