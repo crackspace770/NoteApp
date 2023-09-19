@@ -18,12 +18,12 @@ data class Note (
     val id: Int,
 
     @ColumnInfo(name="subject")
-    var subject: String? = null,
+    var subject: String,
 
     @ColumnInfo(name = "content")
-    var content: String? = null,
+    var content: String,
 
     @ColumnInfo(name="created")
-    var created: String? = null
+    var created: Long
 
         ):Parcelable

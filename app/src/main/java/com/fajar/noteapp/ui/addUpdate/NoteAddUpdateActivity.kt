@@ -38,7 +38,7 @@ class NoteAddUpdateActivity : AppCompatActivity() {
         if (note != null) {
             isEdit = true
         } else {
-            note = Note(id = 0)
+  //          note = Note(id = 0)
         }
 
         val actionBarTitle: String
@@ -100,7 +100,7 @@ class NoteAddUpdateActivity : AppCompatActivity() {
                             showToast(getString(R.string.changed))
                         } else {
                             note.let { note ->
-                                note?.created= DateHelper.getCurrentDate()
+                           //     note?.created= DateHelper.getCurrentDate()
                             }
                             noteAddUpdateViewModel.addNote(note as Note)
                             showToast(getString(R.string.added))

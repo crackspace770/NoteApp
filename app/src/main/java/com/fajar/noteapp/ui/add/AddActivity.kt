@@ -30,11 +30,6 @@ class AddActivity:AppCompatActivity() {
         val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(this, factory)[AddViewModel::class.java]
 
-    //    binding.btnClose.setOnClickListener {
-   //         val intent = Intent(this, ListActivity::class.java)
- //           startActivity(intent)
-//
-  //      }
 
         simpleDate = SimpleDateFormat("dd mm yyyy, h:mm a", Locale.getDefault())
         supportActionBar?.title = getString(R.string.created_title, simpleDate.format(viewModel.created))
@@ -58,11 +53,11 @@ class AddActivity:AppCompatActivity() {
                 when{
                     binding.edTitle.text.toString().isEmpty() -> Toast.makeText(this,"Please fill in the title", Toast.LENGTH_SHORT).show()
                     binding.edContent.text.toString().isEmpty() -> Toast.makeText(this, "Please fill in the content", Toast.LENGTH_SHORT).show()
-
                 }
                 val title = titleNote.text.toString()
                 val content = contentNote.text.toString()
-                val note = Note(0, title, content,)
+
+                val note = Note(0, title, content, created)
                 Toast.makeText(this, "Note Added", Toast.LENGTH_SHORT).show()
 
                 viewModel.addNote(note)

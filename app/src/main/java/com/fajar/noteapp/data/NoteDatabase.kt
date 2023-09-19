@@ -31,7 +31,7 @@ abstract fun noteDao(): NoteDao
             return instance ?: synchronized(this) {
                 instance ?: Room.databaseBuilder(
                     context,
-                    NoteDatabase::class.java, "letter.db"
+                    NoteDatabase::class.java, "note.db"
                 ).addCallback( object : Callback(){
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
@@ -58,7 +58,7 @@ abstract fun noteDao(): NoteDao
                                 item.getInt("id"),
                                 item.getString("subject"),
                                 item.getString("content"),
-                                item.getString("created"),
+                                item.getLong("created"),
                             )
                         )
                     }

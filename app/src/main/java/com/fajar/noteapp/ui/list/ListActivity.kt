@@ -41,11 +41,18 @@ class ListActivity: AppCompatActivity() {
         val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProviders.of(this, factory)[ListViewModel::class.java]
 
-
         setUpRecyclerView()
         noteList()
         initAction()
         showEmptyDataState()
+        addMenu()
+    }
+
+    private fun addMenu(){
+        binding.addButton.setOnClickListener {
+            val intent = Intent(this@ListActivity, AddActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun noteList(){
@@ -82,14 +89,10 @@ class ListActivity: AppCompatActivity() {
             adapter = noteAdapter
         }
 
-
     }
 
-
-
-
     private fun onLetterClick(note: Note) {
-        val i = Intent(this, NoteAddUpdateActivity::class.java)
+        val i = Intent(this, DetailActivity::class.java)
         i.putExtra(NOTE_ID, note.id)
         startActivity(i)
     }
@@ -130,12 +133,6 @@ class ListActivity: AppCompatActivity() {
         return when(item.itemId){
             R.id.action_filter -> {
                 showFilteringPopUpMenu()
-                true
-            }
-
-            R.id.action_add -> {
-                val intent = Intent(this, AddActivity::class.java)
-                startActivity(intent)
                 true
             }
 

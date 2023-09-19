@@ -80,13 +80,12 @@ class DetailActivity:AppCompatActivity() {
 
                 }
 
-                val note = Note(0, title, content)
+                val note = Note(0, title, content, created)
                 Toast.makeText(this, "Note Updated", Toast.LENGTH_SHORT).show()
 
 
                 viewModel.updateNote(note)
                 super.onBackPressed()
-
                 return true
 
             }

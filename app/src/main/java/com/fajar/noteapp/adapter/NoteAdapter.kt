@@ -55,8 +55,7 @@ class NoteAdapter(
     inner class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val tvTitle: TextView = itemView.findViewById(R.id.tvTitleUpdate)
         val tvContent: TextView = itemView.findViewById(R.id.tvContentUpdate)
-        //val cbComplete: CheckBox = itemView.findViewById(R.id.item_checkbox)
-      //  private val tvDueDate: TextView = itemView.findViewById(R.id.item_tv_date)
+
 
         lateinit var getTask: Note
 
@@ -64,7 +63,7 @@ class NoteAdapter(
             getTask = note
             tvTitle.text = note.subject
             tvContent.text = note.content
-         //   tvDueDate.text = DateConverter.convertMillisToString(note.created)
+
             itemView.setOnClickListener {
                 val detailIntent = Intent(itemView.context, DetailActivity::class.java)
                 detailIntent.putExtra(NOTE_ID, note.id)
